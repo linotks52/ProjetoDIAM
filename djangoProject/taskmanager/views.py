@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -85,4 +85,12 @@ def multiple_delete(request, ids):
         task.delete()
     return HttpResponseRedirect(reverse('taskmanager:task_list'))
 
+@login_required
+def profile(request):
+    return render(request, 'taskmanager/profile.html')
 
+@login_required
+def sair(request):
+    request.session.flush
+    logout(request)
+    return HttpResponseRedirect(reverse('taskmanager:logar'))
