@@ -24,10 +24,10 @@ def create_task(request):
             task = form.save(commit=False)
             task.user = request.user
             task.save()
-            return redirect('task_list')
+            return redirect('taskmanager:task_list')
     else:
         form = TaskForm()
-    return render(request, 'create_task.html', {'form': form})
+    return render(request, 'taskmanager/create_task.html', {'form': form})
 
 @login_required
 def edit_task(request, task_id):
@@ -36,16 +36,17 @@ def edit_task(request, task_id):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            return redirect('task_list')
+            return redirect('taskmanager:task_list')
     else:
         form = TaskForm(instance=task)
-    return render(request, 'edit_task.html', {'form': form, 'task': task})
+    print(task)
+    return render(request, 'taskmanager/edit_task.html', {'form': form, 'task': task})
 
 @login_required
 def delete_task(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
-    return redirect('task_list')
+    return redirect('taskmanager:task_list')
 
 def signup(request):
     if(request.method == 'POST'):
@@ -76,3 +77,12 @@ def logar(request):
             return render(request, 'taskmanager/login.html')
     else:
         return render(request, 'taskmanager/login.html')
+
+
+def multiple_delete(request, ids):
+    for id in ids:
+        task = Task.objects.get(id=id)
+        task.delete()
+    return HttpResponseRedirect(reverse('taskmanager:task_list'))
+
+
