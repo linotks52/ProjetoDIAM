@@ -1,0 +1,16 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %}
+    Perfil
+{% endblock %}
+
+{% block content %}
+    <h2>Seu Perfil</h2>
+    <h2><img src="{% static 'taskmanager/images/default-user-image.png' %}" width="200" height="200"></h2>
+    <h3> {{ request.user.utilizador.nome }} </h3>
+    <h4>{{request.user.username}}</h4>
+    <p>Sobre si: {{request.user.utilizador.descricao}}</p>
+    <p>Email: {{request.user.email}}</p>
+    <p></p>
+{% endblock %}

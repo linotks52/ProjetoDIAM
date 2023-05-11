@@ -24,4 +24,5 @@ class Utilizador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
-    imagem = models.CharField(max_length=100, default="default-user-image.png")
+    imagem = models.CharField(max_length=100, default='taskmanager/images/default-user-image.png')
+    descricao = models.TextField(max_length=300, default ="Ainda sem descricao ,escreva um pouco sobre si!")
