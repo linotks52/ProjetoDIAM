@@ -14,7 +14,7 @@ from .forms import TaskForm
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)
-    return render(request, 'task_list.html', {'tasks': tasks})
+    return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
 
 @login_required
 def create_task(request):
@@ -68,6 +68,7 @@ def logar(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        print(username, password)
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse('taskmanager:task_list'))
