@@ -13,9 +13,8 @@
   </form>
     <button id="delete">Eliminar</button>
 
-    <script>
+    <script type='text/javascript'>
     var myButton = document.getElementById("delete");
-    print(dred)
     myButton.addEventListener("click", function() {
         if (confirm("Essa ação é irreversível, deseja prosseguir?")) {
             window.location.href = "{% url 'taskmanager:delete_task' task.id %}";

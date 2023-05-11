@@ -6,29 +6,37 @@
   {% if tasks %}
     {% for task in tasks %}
       <li>
-      <input type="checkbox" id="{{ task.id }}" name="ids">
+      <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
       </li>
     {% endfor %}
   {% else %}
         <p>Não há tarefas disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button">Eliminar</button>
+    <button id="deleteAll" type="button" onclick="select()">Eliminar</button>
   </ul>
   <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
-{% endblock %}
 
-<script>
-    var myButton = document.getElementById("deleteAll");
-    print(dred)
-    myButton.addEventListener("click", function() {
+    <script type='text/javascript'>
+    function visibility(){
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        var deleteButton = document.getElementById('deleteAll');
+        if (checkboxes.length > 0) {
+            deleteButton.style.display = "block";
+        } else {
+            deleteButton.style.display = "none";
+        }
+    }
+
+
+    function select() {
     var selectedIds = Array.from(document.querySelectorAll('input[name="ids"]:checked'))
                          .map(function(elem) { return elem.id; });
-    if (selectedIds.length > 0) {
-        var url = "{% url 'taskmanager:multiple_delete' %}?ids=" + selectedIds.join(',');
-        print(url)
-        window.location.href = url;
-    }
-    });
+        if (selectedIds.length > 0 && confirm("Essa ação é irreversível, deseja prosseguir?")) {
+            var args = selectedIds.join(',');
+            window.location.href = "/taskmanager/tasks/delete/" + args + "/";
 
+        }
+    }
 </script>
+{% endblock %}
