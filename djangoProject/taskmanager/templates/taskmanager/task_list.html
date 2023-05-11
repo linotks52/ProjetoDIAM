@@ -1,13 +1,22 @@
 {% extends "./base.html" %}
-
+<head>
+    {% load static %}
+</head>
 {% block content %}
   <h2>Task List</h2>
-  <ul>
+    <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
+    <input type="text" placeholder="Pesquisar" id="search" onkeyup="search()">
+    <div>
+    <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="50" height="50">
+    <label id="sort"> </label>
+    </div>
+    <ul id="list">
   {% if tasks %}
     {% for task in tasks %}
       <li>
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
+      <label> {{ task.priority }}</label>
       </li>
     {% endfor %}
   {% else %}
@@ -15,9 +24,81 @@
     {% endif %}
     <button id="deleteAll" type="button" onclick="select()">Eliminar</button>
   </ul>
-  <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
 
     <script type='text/javascript'>
+
+
+    function sort() {
+        let list = document.getElementById("list");
+        const titles = list.getElementsByTagName("a");
+        const priorities = list.getElementsByTagName("label");
+        tarefas = [];
+        for(let i = 0; i < titles.length; i++ ){
+            const tarefa = {
+                title: titles[i].innerHTML,
+                priority: priorities[i].innerHTML,
+            };
+            tarefas.push(tarefa);
+        }
+
+        var type = document.getElementById("sort");
+
+        if (type.innerHTML=="") {
+            console.log(" primeiro if");
+            tarefas.sort(function (a, b) {
+                  let priorityA = a.priority.toUpperCase();
+                  let priorityB = b.priority.toUpperCase();
+                  if (priorityB < priorityA) {
+                    return -1;
+                  }
+                  if (priorityB > priorityA) {
+                    return 1;
+                  }
+                  return 0;
+            });            document.getElementById("sort").innerHTML="Descendente";
+        }else if (type.innerHTML=="Descendente"){
+            tarefas.sort(function (a, b) {
+                  let priorityA = a.priority.toUpperCase();
+                  let priorityB = b.priority.toUpperCase();
+                  if (priorityA < priorityB) {
+                    return -1;
+                  }
+                  if (priorityA > priorityB) {
+                    return 1;
+                  }
+                  return 0;
+            });
+            document.getElementById("sort").innerHTML="Ascendente";
+            console.log(" segundos if"+type.innerHTML);
+        }else{
+            document.getElementById("sort").innerHTML="";
+        }
+
+        for (let i = 0; i < titles.length; i++) {
+            console.log("tarefa "+tarefas[i].title+" prioridade "+tarefas[i].priority);
+            titles[i].innerHTML=tarefas[i].title;
+            priorities[i].innerHTML=tarefas[i].priority;
+        }
+    }
+
+    function search() {
+        const list = document.getElementById("list");
+        const search = document.getElementById("search");
+        const filter = search.value.toLowerCase(); // Get the input value and convert to lowercase
+        const items = list.getElementsByTagName("li"); // Get the list items
+
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const text = item.textContent.toLowerCase(); // Get the text content of the item and convert to lowercase
+            if (text.indexOf(filter) === -1) { // If the filter is not found in the text content
+                item.style.display = "none"; // Hide the item
+            } else {
+                item.style.display = ""; // Show the item
+            }
+        }
+    }
+
+
     function visibility(){
         var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
         var deleteButton = document.getElementById('deleteAll');
@@ -27,7 +108,6 @@
             deleteButton.style.display = "none";
         }
     }
-
 
     function select() {
     var selectedIds = Array.from(document.querySelectorAll('input[name="ids"]:checked'))
