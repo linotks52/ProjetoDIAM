@@ -19,5 +19,4 @@ from django.urls import path, include
 
 urlpatterns = [
     path('taskmanager/', include('taskmanager.urls')),
-    path('admin/', admin.site.urls),
 ]

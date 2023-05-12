@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 from .models import Task, Utilizador
-from .forms import TaskForm
+from .forms import TaskForm, UserForm
+
 
 @login_required
 def task_list(request):
@@ -94,6 +95,30 @@ def sair(request):
     request.session.flush
     logout(request)
     return HttpResponseRedirect(reverse('taskmanager:logar'))
+
+def user_list(request):
+    users = Utilizador.objects.all()
+    return render(request, 'taskmanager/user_list.html', {'Users': users})
+
+
+@login_required
+def edit_user(request, utilizador_id):
+    utilizador = Utilizador.objects.get(id=utilizador_id)
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=utilizador)
+        if form.is_valid():
+            form.save()
+            return redirect('taskmanager:user_list')
+    else:
+        form = UserForm(instance=utilizador)
+    print(utilizador)
+    return render(request, 'taskmanager/edit_user.html', {'form': form, 'utilizador': utilizador})
+
+@login_required
+def delete_user(request, utilizador_id):
+    utilizador = Utilizador.objects.get(id=utilizador_id)
+    utilizador.delete()
+    return redirect('taskmanager:user_list')
 
 
 def creditos(request):

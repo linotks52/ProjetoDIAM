@@ -27,5 +27,6 @@ class Utilizador(models.Model):
     imagem = models.CharField(max_length=100, default='taskmanager/images/default-user-image.png')
     descricao = models.TextField(max_length=300, default ="Ainda sem descricao ,escreva um pouco sobre si!")
     tarefascriadas = models.IntegerField(default=0)
+    isAdmin = models.BooleanField(default=False)
     tarefasconcluidas = models.IntegerField(default=0)
     datadecriacao = models.DateField(auto_now_add=True)

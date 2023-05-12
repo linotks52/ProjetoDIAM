@@ -1,30 +1,28 @@
 {% extends "./base.html" %}
 <head>
     {% load static %}
-
 </head>
 {% block content %}
-  <h2>Task List</h2>
-    <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
+  <h2>User List</h2>
+    <a href="{% url 'taskmanager:signup' %}">Create User</a>
     <input type="text" placeholder="Pesquisar" id="search" onkeyup="search()">
     <div>
     <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="50" height="50">
     <label id="sort"> </label>
     </div>
     <ul id="list">
-  {% if tasks %}
-    {% for task in tasks %}
+  {% if Users %}
+    {% for utilizador in Users %}
       <li>
-      <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
-      <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
-      <label> || Priority: {{ task.priority }} || </label>
-      <label> Completion status: {{ task.completed }}</label>
+      <input type="checkbox" id="{{ user.id }}" name="ids" onchange="visibility()">
+      <a href="{% url 'taskmanager:edit_user' utilizador.id %}"> {{ utilizador.nome }}</a>
+
       </li>
     {% endfor %}
   {% else %}
-        <p>Não há tarefas disponíveis.</p>
+        <p>Não há Users disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
+    <button id="deleteAll" type="button" onclick="select()">Eliminar</button>
   </ul>
 
     <script type='text/javascript'>
@@ -33,23 +31,23 @@
     function sort() {
         let list = document.getElementById("list");
         const titles = list.getElementsByTagName("a");
-        const priorities = list.getElementsByTagName("label");
-        tarefas = [];
+
+        users = [];
         for(let i = 0; i < titles.length; i++ ){
-            const tarefa = {
+            const user = {
                 title: titles[i].innerHTML,
-                priority: priorities[i].innerHTML,
+                link: titles[i].href,
             };
-            tarefas.push(tarefa);
+            users.push(user);
         }
 
         var type = document.getElementById("sort");
 
         if (type.innerHTML=="") {
             console.log(" primeiro if");
-            tarefas.sort(function (a, b) {
-                  let priorityA = a.priority.toUpperCase();
-                  let priorityB = b.priority.toUpperCase();
+            users.sort(function (a, b) {
+                  let priorityA = a.title.toUpperCase();
+                  let priorityB = b.title.toUpperCase();
                   if (priorityB < priorityA) {
                     return -1;
                   }
@@ -59,9 +57,9 @@
                   return 0;
             });            document.getElementById("sort").innerHTML="Descendente";
         }else if (type.innerHTML=="Descendente"){
-            tarefas.sort(function (a, b) {
-                  let priorityA = a.priority.toUpperCase();
-                  let priorityB = b.priority.toUpperCase();
+            users.sort(function (a, b) {
+                  let priorityA = a.title.toUpperCase();
+                  let priorityB = b.title.toUpperCase();
                   if (priorityA < priorityB) {
                     return -1;
                   }
@@ -77,9 +75,9 @@
         }
 
         for (let i = 0; i < titles.length; i++) {
-            console.log("tarefa "+tarefas[i].title+" prioridade "+tarefas[i].priority);
-            titles[i].innerHTML=tarefas[i].title;
-            priorities[i].innerHTML=tarefas[i].priority;
+            console.log("User "+users[i].title+users[i].link);
+            titles[i].innerHTML=users[i].title;
+            titles[i].href=users[i].link;
         }
     }
 
