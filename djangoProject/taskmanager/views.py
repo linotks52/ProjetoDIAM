@@ -120,6 +120,13 @@ def delete_user(request, utilizador_id):
     utilizador.delete()
     return redirect('taskmanager:user_list')
 
+@login_required
+def multiple_delete_users(request, ids):
+    for id in ids:
+        utilizador = Utilizador.objects.get(id=id)
+        utilizador.delete()
+    return HttpResponseRedirect(reverse('taskmanager:user_list'))
+
 
 def creditos(request):
     return render(request, 'taskmanager/creditos.html')

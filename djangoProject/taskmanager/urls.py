@@ -22,6 +22,7 @@ urlpatterns = [
                   path('users/', views.user_list, name='user_list'),
                   path('users/edit/<int:utilizador_id>', views.edit_user, name='edit_user'),
                   path('users/delete/<int:utilizador_id>/', views.delete_user, name='delete_user'),
+                  path('users/delete/<int_array:ids>/', views.multiple_delete_users, name='multiple_delete_users'),
               ]
 
 if settings.DEBUG:

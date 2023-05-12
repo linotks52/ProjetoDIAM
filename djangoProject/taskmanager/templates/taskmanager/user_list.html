@@ -22,7 +22,7 @@
   {% else %}
         <p>Não há Users disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button" onclick="select()">Eliminar</button>
+    <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
   </ul>
 
     <script type='text/javascript'>
@@ -43,7 +43,7 @@
 
         var type = document.getElementById("sort");
 
-        if (type.innerHTML=="") {
+        if (type.textContent.trim()=="") {
             console.log(" primeiro if");
             users.sort(function (a, b) {
                   let priorityA = a.title.toUpperCase();
@@ -56,7 +56,7 @@
                   }
                   return 0;
             });            document.getElementById("sort").innerHTML="Descendente";
-        }else if (type.innerHTML=="Descendente"){
+        }else if (type.textContent.trim()=="Descendente"){
             users.sort(function (a, b) {
                   let priorityA = a.title.toUpperCase();
                   let priorityB = b.title.toUpperCase();
@@ -114,7 +114,7 @@
                          .map(function(elem) { return elem.id; });
         if (selectedIds.length > 0 && confirm("Essa ação é irreversível, deseja prosseguir?")) {
             var args = selectedIds.join(',');
-            window.location.href = "/taskmanager/tasks/delete/" + args + "/";
+            window.location.href = "/taskmanager/users/delete/" + args + "/";
 
         }
     }

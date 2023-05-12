@@ -9,6 +9,7 @@
   <form method="post" action="{% url 'taskmanager:edit_user' utilizador.id %}">
     {% csrf_token %}
     {{ form.as_p }}
+      <label> Data de criação: {{ utilizador.datadecriacao }}  </label><p></p>
     <button type="submit">Atualizar</button>
   </form>
     <button id="delete">Eliminar</button>
