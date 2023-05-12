@@ -95,6 +95,10 @@ def sair(request):
     logout(request)
     return HttpResponseRedirect(reverse('taskmanager:logar'))
 
+def user_list(request):
+    users = Utilizador.objects.all()
+    return render(request, 'taskmanager/user_list.html', {'Users': users})
+
 
 def creditos(request):
     return render(request, 'taskmanager/creditos.html')

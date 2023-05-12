@@ -1,30 +1,28 @@
 {% extends "./base.html" %}
 <head>
     {% load static %}
-
 </head>
 {% block content %}
-  <h2>Task List</h2>
-    <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
+  <h2>User List</h2>
+    <a href="{% url 'taskmanager:signup' %}">Create User</a>
     <input type="text" placeholder="Pesquisar" id="search" onkeyup="search()">
     <div>
     <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="50" height="50">
     <label id="sort"> </label>
     </div>
     <ul id="list">
-  {% if tasks %}
-    {% for task in tasks %}
+  {% if Users %}
+    {% for user in Users %}
       <li>
-      <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
-      <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
-      <label> || Priority: {{ task.priority }} || </label>
-      <label> Completion status: {{ task.completed }}</label>
+      <input type="checkbox" id="{{ user.id }}" name="ids" onchange="visibility()">
+      <a href="{% url 'taskmanager:edit_user' user.id %}"> {{ user.nome }}</a>
+
       </li>
     {% endfor %}
   {% else %}
-        <p>Não há tarefas disponíveis.</p>
+        <p>Não há Users disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
+    <button id="deleteAll" type="button" onclick="select()">Eliminar</button>
   </ul>
 
     <script type='text/javascript'>
