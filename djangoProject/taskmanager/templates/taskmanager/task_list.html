@@ -17,6 +17,7 @@
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
       <label> {{ task.priority }}</label>
+        <input type="checkbox" class="completed" disabled="true" value="{{ task.completed }}}">
       </li>
     {% endfor %}
   {% else %}
@@ -32,10 +33,12 @@
         let list = document.getElementById("list");
         const titles = list.getElementsByTagName("a");
         const priorities = list.getElementsByTagName("label");
+
         tarefas = [];
         for(let i = 0; i < titles.length; i++ ){
             const tarefa = {
                 title: titles[i].innerHTML,
+                link: titles[i].href,
                 priority: priorities[i].innerHTML,
             };
             tarefas.push(tarefa);
@@ -43,7 +46,7 @@
 
         var type = document.getElementById("sort");
 
-        if (type.innerHTML=="") {
+        if (type.textContent.trim()=="") {
             console.log(" primeiro if");
             tarefas.sort(function (a, b) {
                   let priorityA = a.priority.toUpperCase();
@@ -56,7 +59,7 @@
                   }
                   return 0;
             });            document.getElementById("sort").innerHTML="Descendente";
-        }else if (type.innerHTML=="Descendente"){
+        }else if (type.textContent.trim()=="Descendente"){
             tarefas.sort(function (a, b) {
                   let priorityA = a.priority.toUpperCase();
                   let priorityB = b.priority.toUpperCase();
@@ -75,8 +78,9 @@
         }
 
         for (let i = 0; i < titles.length; i++) {
-            console.log("tarefa "+tarefas[i].title+" prioridade "+tarefas[i].priority);
+            console.log("User "+tarefas[i].title+tarefas[i].link);
             titles[i].innerHTML=tarefas[i].title;
+            titles[i].href=tarefas[i].link;
             priorities[i].innerHTML=tarefas[i].priority;
         }
     }
@@ -115,7 +119,6 @@
         if (selectedIds.length > 0 && confirm("Essa ação é irreversível, deseja prosseguir?")) {
             var args = selectedIds.join(',');
             window.location.href = "/taskmanager/tasks/delete/" + args + "/";
-
         }
     }
 </script>
