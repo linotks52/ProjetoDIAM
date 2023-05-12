@@ -7,10 +7,14 @@
   <h2>Task List</h2>
     <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
     <input type="text" placeholder="Pesquisar" id="search" onkeyup="search()">
-    <div>
-    <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="50" height="50">
+    <select id="criteria">
+        <option selected value="title"> Título</option>
+        <option value="priority"> Prioridade</option>
+        <option value="completion"> Estado </option>
+        <option value="date"> Data </option>
+    </select>
+    <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="25" height="25">
     <label id="sort"> </label>
-    </div>
     <ul id="list">
   {% if tasks %}
     {% for task in tasks %}
@@ -18,7 +22,8 @@
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
       <label class="priority"> || Priority: {{ task.priority }} || </label>
-      <label class="completed"> Completion status: {{ task.completed }}</label>
+      <label> Completion status: </label>
+      <input type="checkbox" class="completed" {% if task.completed %} checked="true" {% endif %} onchange="update({{ task.id }})">
       </li>
     {% endfor %}
   {% else %}
@@ -28,58 +33,147 @@
   </ul>
 
     <script type='text/javascript'>
+    function update(id){
+        window.location.href="/taskmanager/tasks/change/" + id + "/";
+    }
 
 
     function sort() {
         let list = document.getElementById("list");
         const titles = list.getElementsByTagName("a");
         const priorities = list.getElementsByClassName("priority");
+        const completed = list.getElementsByClassName("completed");
         tarefas = [];
         for(let i = 0; i < titles.length; i++ ){
             const tarefa = {
                 title: titles[i].innerHTML,
                 priority: priorities[i].innerHTML,
+                completed: completed[i].checked,
+                link: titles[i].href,
             };
             tarefas.push(tarefa);
+            console.log("completed "+completed[i].checked);
         }
 
+
+        const selectElement = document.getElementById("criteria");
+        const selectedValue = selectElement.value;
+        if (selectElement.selectedIndex === -1) {
+            alert("Por favor selecione uma opção de ordenação");
+        } else {
+            console.log("essa "+selectedValue);
+            typeOfSort(tarefas, selectedValue, priorities, titles, completed);
+        }
+    }
+
+    function typeOfSort(tarefas, sort, priorities, titles, completed){
         var type = document.getElementById("sort");
-
-        if (type.innerHTML=="") {
-            console.log(" primeiro if");
-            tarefas.sort(function (a, b) {
-                  let priorityA = a.priority.toUpperCase();
-                  let priorityB = b.priority.toUpperCase();
-                  if (priorityB < priorityA) {
-                    return -1;
-                  }
-                  if (priorityB > priorityA) {
-                    return 1;
-                  }
-                  return 0;
-            });            document.getElementById("sort").innerHTML="Descendente";
-        }else if (type.innerHTML=="Descendente"){
-            tarefas.sort(function (a, b) {
-                  let priorityA = a.priority.toUpperCase();
-                  let priorityB = b.priority.toUpperCase();
-                  if (priorityA < priorityB) {
-                    return -1;
-                  }
-                  if (priorityA > priorityB) {
-                    return 1;
-                  }
-                  return 0;
-            });
-            document.getElementById("sort").innerHTML="Ascendente";
-            console.log(" segundos if"+type.innerHTML);
-        }else{
-            document.getElementById("sort").innerHTML="";
+        if(sort == "priority") {
+            if (type.textContent.trim() == "") {
+                console.log(" primeiro if");
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.priority.toUpperCase();
+                    let priorityB = b.priority.toUpperCase();
+                    if (priorityB < priorityA) {
+                        return -1;
+                    }
+                    if (priorityB > priorityA) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Descendente";
+            } else if (type.textContent.trim() == "Descendente") {
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.priority.toUpperCase();
+                    let priorityB = b.priority.toUpperCase();
+                    if (priorityA < priorityB) {
+                        return -1;
+                    }
+                    if (priorityA > priorityB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Ascendente";
+                console.log(" segundos if" + type.innerHTML);
+            } else {
+                document.getElementById("sort").innerHTML = "";
+            }
+        }else if(sort == "title"){
+            if (type.textContent.trim() == "") {
+                console.log(" primeiro if");
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.title.toUpperCase();
+                    let priorityB = b.title.toUpperCase();
+                    if (priorityB < priorityA) {
+                        return -1;
+                    }
+                    if (priorityB > priorityA) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Descendente";
+            } else if (type.textContent.trim() == "Descendente") {
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.title.toUpperCase();
+                    let priorityB = b.title.toUpperCase();
+                    if (priorityA < priorityB) {
+                        return -1;
+                    }
+                    if (priorityA > priorityB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Ascendente";
+                console.log(" segundos if" + type.innerHTML);
+            } else {
+                document.getElementById("sort").innerHTML = "";
+            }
+        }else if(sort == "completion"){
+            if (type.textContent.trim() == "") {
+                console.log(" primeiro if");
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.completed;
+                    let priorityB = b.completed;
+                    console.log("A "+priorityA+" B "+priorityB);
+                    if (priorityB < priorityA) {
+                        return -1;
+                    }
+                    if (priorityB > priorityA) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Descendente";
+            } else if (type.textContent.trim() == "Descendente") {
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.completed;
+                    let priorityB = b.completed;
+                    if (priorityA < priorityB) {
+                        return -1;
+                    }
+                    if (priorityA > priorityB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Ascendente";
+                console.log(" segundos if" + type.innerHTML);
+            } else {
+                document.getElementById("sort").innerHTML = "";
+            }
         }
 
-        for (let i = 0; i < titles.length; i++) {
-            console.log("tarefa "+tarefas[i].title+" prioridade "+tarefas[i].priority);
-            titles[i].innerHTML=tarefas[i].title;
-            priorities[i].innerHTML=tarefas[i].priority;
+        for (let i = 0; i < tarefas.length; i++) {
+            console.log("esta completa "+tarefas[i].completed.checked);
+            console.log("tarefa " + tarefas[i].title + " link " + tarefas[i].title.href);
+            titles[i].innerHTML = tarefas[i].title;
+            titles[i].href = tarefas[i].link;
+            priorities[i].innerHTML = tarefas[i].priority;
+            completed[i].checked = tarefas[i].completed;
         }
     }
 

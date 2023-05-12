@@ -40,8 +40,17 @@ def edit_task(request, task_id):
             return redirect('taskmanager:task_list')
     else:
         form = TaskForm(instance=task)
-    print(task)
     return render(request, 'taskmanager/edit_task.html', {'form': form, 'task': task})
+
+@login_required
+def change_completion(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if task.completed:
+        task.completed="False"
+    else:
+        task.completed="True"
+    task.save()
+    return HttpResponseRedirect(reverse('taskmanager:task_list'))
 
 @login_required
 def delete_task(request, task_id):
