@@ -1,0 +1,25 @@
+{% extends "./base.html" %}
+
+{% block title %}
+  Editar User
+{% endblock %}
+
+{% block content %}
+  <h2>Editar User</h2>
+  <form method="post" action="{% url 'taskmanager:edit_user' utilizador.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+      <label> Data de criação: {{ utilizador.datadecriacao }}  </label><p></p>
+    <button type="submit">Atualizar</button>
+  </form>
+    <button id="delete">Eliminar</button>
+
+    <script type='text/javascript'>
+    var myButton = document.getElementById("delete");
+    myButton.addEventListener("click", function() {
+        if (confirm("Essa ação é irreversível, deseja prosseguir?")) {
+            window.location.href = "{% url 'taskmanager:delete_user' utilizador.id %}";
+        }
+    });
+</script>
+{% endblock %}

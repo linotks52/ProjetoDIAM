@@ -12,17 +12,17 @@
     </div>
     <ul id="list">
   {% if Users %}
-    {% for user in Users %}
+    {% for utilizador in Users %}
       <li>
       <input type="checkbox" id="{{ user.id }}" name="ids" onchange="visibility()">
-      <a href="{% url 'taskmanager:edit_user' user.id %}"> {{ user.nome }}</a>
+      <a href="{% url 'taskmanager:edit_user' utilizador.id %}"> {{ utilizador.nome }}</a>
 
       </li>
     {% endfor %}
   {% else %}
         <p>Não há Users disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button" onclick="select()">Eliminar</button>
+    <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
   </ul>
 
     <script type='text/javascript'>
@@ -31,23 +31,23 @@
     function sort() {
         let list = document.getElementById("list");
         const titles = list.getElementsByTagName("a");
-        const priorities = list.getElementsByTagName("label");
-        tarefas = [];
+
+        users = [];
         for(let i = 0; i < titles.length; i++ ){
-            const tarefa = {
+            const user = {
                 title: titles[i].innerHTML,
-                priority: priorities[i].innerHTML,
+                link: titles[i].href,
             };
-            tarefas.push(tarefa);
+            users.push(user);
         }
 
         var type = document.getElementById("sort");
 
-        if (type.innerHTML=="") {
+        if (type.textContent.trim()=="") {
             console.log(" primeiro if");
-            tarefas.sort(function (a, b) {
-                  let priorityA = a.priority.toUpperCase();
-                  let priorityB = b.priority.toUpperCase();
+            users.sort(function (a, b) {
+                  let priorityA = a.title.toUpperCase();
+                  let priorityB = b.title.toUpperCase();
                   if (priorityB < priorityA) {
                     return -1;
                   }
@@ -56,10 +56,10 @@
                   }
                   return 0;
             });            document.getElementById("sort").innerHTML="Descendente";
-        }else if (type.innerHTML=="Descendente"){
-            tarefas.sort(function (a, b) {
-                  let priorityA = a.priority.toUpperCase();
-                  let priorityB = b.priority.toUpperCase();
+        }else if (type.textContent.trim()=="Descendente"){
+            users.sort(function (a, b) {
+                  let priorityA = a.title.toUpperCase();
+                  let priorityB = b.title.toUpperCase();
                   if (priorityA < priorityB) {
                     return -1;
                   }
@@ -75,9 +75,9 @@
         }
 
         for (let i = 0; i < titles.length; i++) {
-            console.log("tarefa "+tarefas[i].title+" prioridade "+tarefas[i].priority);
-            titles[i].innerHTML=tarefas[i].title;
-            priorities[i].innerHTML=tarefas[i].priority;
+            console.log("User "+users[i].title+users[i].link);
+            titles[i].innerHTML=users[i].title;
+            titles[i].href=users[i].link;
         }
     }
 
@@ -114,7 +114,7 @@
                          .map(function(elem) { return elem.id; });
         if (selectedIds.length > 0 && confirm("Essa ação é irreversível, deseja prosseguir?")) {
             var args = selectedIds.join(',');
-            window.location.href = "/taskmanager/tasks/delete/" + args + "/";
+            window.location.href = "/taskmanager/users/delete/" + args + "/";
 
         }
     }

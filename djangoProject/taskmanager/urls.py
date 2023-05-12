@@ -19,8 +19,13 @@ urlpatterns = [
                   path("profile/", views.profile, name='profile'),
                   path("profile/edit_profile/", views.edit_profile, name='edit_profile'),
                   path("sair", views.sair, name='sair'),
-                  path("creditos", views.creditos, name='creditos')
-              ]
+                  path("creditos", views.creditos, name='creditos'),
+                  path('users/', views.user_list, name='user_list'),
+                  path('users/edit/<int:utilizador_id>', views.edit_user, name='edit_user'),
+                  path('users/delete/<int:utilizador_id>/', views.delete_user, name='delete_user'),
+                  path('tasks/change/<int:task_id>/', views.change_completion, name='change'),
+                  path('users/delete/<int_array:utilizador_id>/', views.delete_user_all, name='delete_user_all'),
+]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

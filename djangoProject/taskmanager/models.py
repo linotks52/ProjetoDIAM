@@ -4,9 +4,9 @@ from datetime import datetime
 
 class Task(models.Model):
     PRIORITY_CHOICES = [
-        ('low', 'Low'),
-        ('medium', 'Medium'),
-        ('high', 'High')
+        ('pouca', 'Pouca'),
+        ('mediana', 'Mediana'),
+        ('alta', 'Alta')
     ]
 
     title = models.CharField(max_length=200)
@@ -40,3 +40,6 @@ class Utilizador(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Utilizador'
+
+    isAdmin = models.BooleanField(default=False)
+
