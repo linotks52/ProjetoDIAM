@@ -19,4 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('taskmanager/', include('taskmanager.urls')),
+    path('', include('taskmanager.urls')),
 ]
