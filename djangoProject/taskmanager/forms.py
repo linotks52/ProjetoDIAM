@@ -24,7 +24,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = Utilizador
         exclude = ['datadecriacao']
-        fields = ['nome', 'email', 'descricao', 'tarefascriadas', 'tarefasconcluidas', 'isAdmin', 'imagem', 'datadecriacao']
+        fields = ['nome', 'email', 'descricao','isAdmin', 'imagem', 'datadecriacao']
         widgets = {
             'datadecriacao': forms.DateInput(attrs={'type': 'date', 'readonly': 'readonly'})
         }

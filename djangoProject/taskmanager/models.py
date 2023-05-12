@@ -26,8 +26,8 @@ class Utilizador(models.Model):
     email = models.CharField(max_length=200)
     imagem = models.ImageField(upload_to='profile_pics', blank=True, null=True)
     descricao = models.TextField( default ="Ainda sem descricao ,escreva um pouco sobre si!")
-
     datadecriacao = models.DateField(auto_now_add=True)
+
 
     def tarefascriadas(self):
         return Task.objects.filter(user=self.user).count()
