@@ -4,9 +4,9 @@ from datetime import datetime
 
 class Task(models.Model):
     PRIORITY_CHOICES = [
-        ('low', 'Low'),
-        ('medium', 'Medium'),
-        ('high', 'High')
+        ('pouca', 'Pouca'),
+        ('mediana', 'Mediana'),
+        ('alta', 'Alta')
     ]
 
     title = models.CharField(max_length=200)

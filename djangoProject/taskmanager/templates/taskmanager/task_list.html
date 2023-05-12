@@ -17,8 +17,8 @@
       <li>
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
-      <label> || Priority: {{ task.priority }} || </label>
-      <label> Completion status: {{ task.completed }}</label>
+      <label class="priority"> || Priority: {{ task.priority }} || </label>
+      <label class="completed"> Completion status: {{ task.completed }}</label>
       </li>
     {% endfor %}
   {% else %}
@@ -33,7 +33,7 @@
     function sort() {
         let list = document.getElementById("list");
         const titles = list.getElementsByTagName("a");
-        const priorities = list.getElementsByTagName("label");
+        const priorities = list.getElementsByClassName("priority");
         tarefas = [];
         for(let i = 0; i < titles.length; i++ ){
             const tarefa = {
