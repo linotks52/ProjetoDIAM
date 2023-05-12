@@ -1,6 +1,7 @@
 # forms.py
 from django import forms
-from .models import Task
+from .models import Task, Utilizador
+
 
 class TaskForm(forms.ModelForm):
     class Meta:
@@ -9,3 +10,11 @@ class TaskForm(forms.ModelForm):
         widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date'})
         }
+
+
+
+class UtilizadorForm(forms.ModelForm):
+    imagem = forms.ImageField(required=False)
+    class Meta:
+        model = Utilizador
+        fields = ['nome','email','descricao','imagem']

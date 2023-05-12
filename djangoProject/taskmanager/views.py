@@ -3,18 +3,19 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login , logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-
 from .models import Task, Utilizador
-from .forms import TaskForm
+from .forms import TaskForm, UtilizadorForm
+
 
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)
     return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
+
 
 @login_required
 def create_task(request):
@@ -29,6 +30,7 @@ def create_task(request):
         form = TaskForm()
     return render(request, 'taskmanager/create_task.html', {'form': form})
 
+
 @login_required
 def edit_task(request, task_id):
     task = Task.objects.get(id=task_id)
@@ -42,14 +44,16 @@ def edit_task(request, task_id):
     print(task)
     return render(request, 'taskmanager/edit_task.html', {'form': form, 'task': task})
 
+
 @login_required
 def delete_task(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
     return redirect('taskmanager:task_list')
 
+
 def signup(request):
-    if(request.method == 'POST'):
+    if (request.method == 'POST'):
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
@@ -65,7 +69,7 @@ def signup(request):
 
 
 def logar(request):
-    if(request.method == 'POST'):
+    if (request.method == 'POST'):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
@@ -85,15 +89,32 @@ def multiple_delete(request, ids):
         task.delete()
     return HttpResponseRedirect(reverse('taskmanager:task_list'))
 
+
 @login_required
 def profile(request):
     return render(request, 'taskmanager/profile.html')
+
+
+@login_required
+def edit_profile(request):
+    profile = request.user.utilizador
+    if request.method == 'POST':
+        form = UtilizadorForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('taskmanager:profile')
+    else:
+        form = UtilizadorForm(instance=profile)
+    return render(request, 'taskmanager/edit_profile.html', {'form': form})
+
+
 
 @login_required
 def sair(request):
     request.session.flush
     logout(request)
     return HttpResponseRedirect(reverse('taskmanager:logar'))
+
 
 def user_list(request):
     users = Utilizador.objects.all()
@@ -102,5 +123,3 @@ def user_list(request):
 
 def creditos(request):
     return render(request, 'taskmanager/creditos.html')
-
-

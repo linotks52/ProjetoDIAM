@@ -1,0 +1,24 @@
+{% extends "./base.html" %}
+
+{% block title %}
+  Editar tarefa
+{% endblock %}
+
+{% block content %}
+  <h2>Alterar Perfil</h2>
+  <form method="POST" action="{% url 'taskmanager:edit_profile' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    Imagem: {{ form.imagem }}
+      <br>
+    Nome:  {{ form.nome }}
+      <br>
+    {{ form.descricao }}
+      <br>
+    Email: {{ form.email }}
+      <br>
+    <button onclick="history.back()" type="submit">Salvar mudancas</button>
+</form>
+
+    <button onclick="history.back()" >Cancelar</button>
+
+{% endblock %}
