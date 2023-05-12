@@ -13,17 +13,24 @@
 
     <nav>
             <a href="https://www.iscte-iul.pt/"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Logo_ISCTE_Instituto_Universit%C3%A1rio_de_Lisboa.svg" alt="ISCTE" style="width:80px;height:15px;"></a>
+||
             <a href="{% url 'taskmanager:profile' %}">O meu perfil</a>
-
+||
             <a href="{% url 'taskmanager:task_list' %}">Suas Tasks</a>
-
-            <a href="{% url 'taskmanager:sair' %}"> Sair </a>
+||
+            <a href="{% url 'taskmanager:creditos' %}">Creditos</a>
+||
+            <a href="{% url 'taskmanager:sair' %}">Sair</a>
         </nav>
     {% else %}
         <nav>
             <a href="https://www.iscte-iul.pt/"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Logo_ISCTE_Instituto_Universit%C3%A1rio_de_Lisboa.svg" alt="ISCTE" style="width:80px;height:15px;"></a>
+           ||
             <a href="{% url 'taskmanager:logar' %}"> Login </a>
+           ||
             <a href="{% url 'taskmanager:signup' %}"> Signup </a>
+           ||
+            <a href="{% url 'taskmanager:creditos' %}"> Creditos </a>
         </nav>
     {% endif %}
     </header>

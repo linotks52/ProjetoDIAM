@@ -13,4 +13,11 @@
     <p>Sobre si: {{request.user.utilizador.descricao}}</p>
     <p>Email: {{request.user.email}}</p>
     <p></p>
+    <button type="button" onclick="select()" >Alterar Informacoes</button>
+    <br></br>
+    <br></br>
+    <p>Criacao da Conta : {{ request.user.utilizador.datadecriacao }}</p>
+    <p>Tarefas Criadas : {{ request.user.utilizador.tarefascriadas }}</p>
+    <p>Tarefas Concluidas : {{ request.user.utilizador.tarefasconcluidas }}</p>
+
 {% endblock %}

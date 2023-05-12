@@ -94,3 +94,9 @@ def sair(request):
     request.session.flush
     logout(request)
     return HttpResponseRedirect(reverse('taskmanager:logar'))
+
+
+def creditos(request):
+    return render(request, 'taskmanager/creditos.html')
+
+
