@@ -1,9 +1,74 @@
 {% extends "./base.html" %}
+{% load static %}
+
 
 {% block title %}
     Perfil
 {% endblock %}
 
 {% block content %}
-  <h2>Sobre os Criadores</h2>
+  <h1>Creditos</h1>
+    <h2>Proposito do Projeto</h2>
+    O objetivo deste website é providenciar aos seus utilizadores uma<br>
+    plataforma para gerirem as suas tarefas de uma forma simples e<br>
+    eficiente. O tema será minimalista e moderno, com um foco no uso<br>
+    fácil e funcionalidade.<br>
+
+    <h2>Principais Funcionalidades</h2>
+
+<ul id="list">
+<li>Registo de users e login: Users podem registar uma conta e<br>
+fazer login na mesma para aceder às suas tarefas.
+</li>
+ <br>
+<li>Criação de Tarefas e a sua gestão: Users podem criar novas<br>
+tarefas, definir prioridades e deadlines, e marcar tarefas<br>
+como completadas. Também podem editar e apagar as suas<br>
+próprias tarefas.
+
+</li>
+ <br>
+<li>Filtração de tarefas e sua organização: Users podem filtrar as<br>
+suas tarefas por prioridade, deadline e status de cumprimento.<br>
+Também podem organizá-las por vários critérios.
+
+</li>
+  <br>
+<li>Painel Admin: Admins podem ver e gerir todas as tarefas e<br>
+users no website, incluindo criar novas tarefas e editar as<br>
+informações dos users.
+</li>
+</ul>
+
+
+    <h2>Criadores:</h2>
+
+<table border="1">
+<tr>
+<th>Nome</th>
+<th>Turma</th>
+<th>Numero</th>
+</tr>
+<tr>
+<td>Joao Franco</td>
+<td>LEI-C6</td>
+    <td>98975</td>
+<td><img src="{% static 'taskmanager/images/JoaoFranco.jpg' %}" alt="JoaoFranco" style="width:90px;height:90px;"></td>
+</tr>
+<tr>
+<td>Tiago Castro</td>
+<td>LEI-C5</td>
+<td>92905</td>
+<td><img src="{% static 'taskmanager/images/TiagoCastro.jpg' %}" alt="TiagoCastro" style="width:90px;height:90px;"></td>
+</tr>
+<tr>
+<td>Douglas Lino</td>
+<td>LEI-C5</td>
+<td>98850</td>
+<td><img src="{% static 'taskmanager/images/DouglasLino.jpg' %}" alt="DouglasLino" style="width:90px;height:90px;"></td>
+</tr>
+</table>
+
+
+
 {% endblock %}

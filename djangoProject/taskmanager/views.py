@@ -12,13 +12,13 @@ from .forms import TaskForm, UtilizadorForm, UserForm
 
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)
     return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def create_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -32,7 +32,7 @@ def create_task(request):
     return render(request, 'taskmanager/create_task.html', {'form': form})
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def edit_task(request, task_id):
     task = Task.objects.get(id=task_id)
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def edit_task(request, task_id):
     return render(request, 'taskmanager/edit_task.html', {'form': form, 'task': task})
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def change_completion(request, task_id):
     task = Task.objects.get(id=task_id)
     if task.completed:
@@ -55,7 +55,7 @@ def change_completion(request, task_id):
     task.save()
     return HttpResponseRedirect(reverse('taskmanager:task_list'))
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def delete_task(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
@@ -92,7 +92,7 @@ def logar(request):
     else:
         return render(request, 'taskmanager/login.html')
 
-
+@login_required(login_url='/taskmanager/')
 def multiple_delete(request, ids):
     for id in ids:
         task = Task.objects.get(id=id)
@@ -100,12 +100,12 @@ def multiple_delete(request, ids):
     return HttpResponseRedirect(reverse('taskmanager:task_list'))
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def profile(request):
     return render(request, 'taskmanager/profile.html')
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def edit_profile(request):
     profile = request.user.utilizador
     if request.method == 'POST':
@@ -119,19 +119,19 @@ def edit_profile(request):
 
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def sair(request):
     request.session.flush
     logout(request)
     return HttpResponseRedirect(reverse('taskmanager:logar'))
 
-
+@login_required(login_url='/taskmanager/')
 def user_list(request):
     users = Utilizador.objects.all()
     return render(request, 'taskmanager/user_list.html', {'Users': users})
 
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def edit_user(request, utilizador_id):
     utilizador = Utilizador.objects.get(id=utilizador_id)
     if request.method == 'POST':
@@ -144,13 +144,13 @@ def edit_user(request, utilizador_id):
     print(utilizador)
     return render(request, 'taskmanager/edit_user.html', {'form': form, 'utilizador': utilizador})
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def delete_user(request, utilizador_id):
     utilizador = Utilizador.objects.get(id=utilizador_id)
     utilizador.delete()
     return redirect('taskmanager:user_list')
 
-@login_required
+@login_required(login_url='/taskmanager/')
 def multiple_delete_users(request, ids):
     for id in ids:
         utilizador = Utilizador.objects.get(id=id)
