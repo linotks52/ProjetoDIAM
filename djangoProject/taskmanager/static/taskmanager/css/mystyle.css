@@ -1,6 +1,22 @@
 body {
   background-color: #e8b696;
     font-family: "Arial";
+
+}
+
+tr
+{
+  background-color: #d98181;
+  color: #000000;
+}
+td:nth-child(4)
+{
+  background-color: #865858;
+}
+tr:nth-child(1)
+{
+  background-color: #865858;;
+  color:#000000;;
 }
 
 button{
@@ -232,6 +248,7 @@ background-color: #d98181;
     position: absolute;
     top: 10%;
     left: 20%;
+    color: white;
 
 }
 
@@ -270,5 +287,18 @@ background-color: #d98181;
     padding-left : 10px;
     padding-right : 10px;
     padding-bottom : 10px;
+
+}
+
+.edittask{
+    background-color: #d98181;
+    border: 3px solid black;
+     height: 500px;
+    width: 600px;
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    padding : 10px;
+
 
 }

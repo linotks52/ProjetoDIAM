@@ -8,11 +8,14 @@
 {% endblock %}
 
 {% block content %}
+    <div class="edittask">
   <h2>Editar tarefa</h2>
   <form method="post" action="{% url 'taskmanager:edit_task' task.id %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Atualizar</button>
   </form>
+
     <button id="delete" onclick="confirmTask()">Eliminar</button>
+    </div>
 {% endblock %}
