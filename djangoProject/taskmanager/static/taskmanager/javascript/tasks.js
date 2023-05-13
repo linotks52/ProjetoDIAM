@@ -18,8 +18,8 @@
                 link: titles[i].href,
                 deadline: deadlines[i].innerHTML,
             };
+            console.log("huh? "+tarefa.deadline);
             tarefas.push(tarefa);
-            console.log("completed "+completed[i].checked);
         }
 
 
@@ -28,7 +28,6 @@
         if (selectElement.selectedIndex === -1) {
             alert("Por favor selecione uma opção de ordenação");
         } else {
-            console.log("essa "+selectedValue);
             typeOfSort(tarefas, selectedValue, priorities, titles, deadlines, completed);
         }
     }
@@ -37,7 +36,6 @@
         var type = document.getElementById("sort");
         if(sort == "priority") {
             if (type.textContent.trim() == "") {
-                console.log(" primeiro if");
                 tarefas.sort(function (a, b) {
                     let priorityA = a.priority.toUpperCase();
                     let priorityB = b.priority.toUpperCase();
@@ -63,13 +61,11 @@
                     return 0;
                 });
                 document.getElementById("sort").innerHTML = "Ascendente";
-                console.log(" segundos if" + type.innerHTML);
             } else {
                 document.getElementById("sort").innerHTML = "";
             }
         }else if(sort == "title"){
             if (type.textContent.trim() == "") {
-                console.log(" primeiro if");
                 tarefas.sort(function (a, b) {
                     let priorityA = a.title.toUpperCase();
                     let priorityB = b.title.toUpperCase();
@@ -95,13 +91,11 @@
                     return 0;
                 });
                 document.getElementById("sort").innerHTML = "Ascendente";
-                console.log(" segundos if" + type.innerHTML);
             } else {
                 document.getElementById("sort").innerHTML = "";
             }
         }else if(sort == "completion"){
             if (type.textContent.trim() == "") {
-                console.log(" primeiro if");
                 tarefas.sort(function (a, b) {
                     let priorityA = a.completed;
                     let priorityB = b.completed;
@@ -128,16 +122,16 @@
                     return 0;
                 });
                 document.getElementById("sort").innerHTML = "Ascendente";
-                console.log(" segundos if" + type.innerHTML);
             } else {
                 document.getElementById("sort").innerHTML = "";
             }
         }else if(sort == "deadline") {
             if (type.textContent.trim() == "") {
-                console.log(" primeiro if");
+                console.log(" primeiro if "+tarefas[0].deadline.innerHTML);
                 tarefas.sort(function (a, b) {
-                    let priorityA = a.deadline.toUpperCase();
-                    let priorityB = b.deadline.toUpperCase();
+                    let priorityA = new Date(a.deadline);
+                    let priorityB = new Date(b.deadline);
+                    console.log("A "+priorityA+" B "+priorityB);
                     if (priorityB < priorityA) {
                         return -1;
                     }
@@ -149,8 +143,8 @@
                 document.getElementById("sort").innerHTML = "Descendente";
             } else if (type.textContent.trim() == "Descendente") {
                 tarefas.sort(function (a, b) {
-                    let priorityA = a.deadline.toUpperCase();
-                    let priorityB = b.deadline.toUpperCase();
+                    let priorityA = new Date(a.deadline);
+                    let priorityB = new Date(b.deadline);
                     if (priorityA < priorityB) {
                         return -1;
                     }

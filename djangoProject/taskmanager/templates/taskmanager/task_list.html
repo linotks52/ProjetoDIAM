@@ -1,5 +1,4 @@
 {% extends "./base.html" %}
-{}
 {% block head %}
     {% load static %}
     <script type="text/javascript" src="{% static 'taskmanager/javascript/tasks.js' %}"></script>
@@ -26,7 +25,9 @@
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
       <label class="priority"> || Priority: {{ task.priority }} || </label>
-      <label class="deadline"> Due Date: {{ task.deadline }} || </label>
+      <label> Due Date: </label>
+      <label class="deadline">{{ task.deadline }}</label>
+      <label> || </label>
       <label> Completion status: </label>
       <input type="checkbox" class="completed" {% if task.completed %} checked="true" {% endif %} onchange="update({{ task.id }})">
       </li>
@@ -34,6 +35,7 @@
   {% else %}
         <p>Não há tarefas disponíveis.</p>
     {% endif %}
+      </ul>
     <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
     <div class="pagination">
     <span class="step-links">
@@ -52,5 +54,4 @@
         {% endif %}
     </span>
 </div>
-  </ul>
 {% endblock %}
