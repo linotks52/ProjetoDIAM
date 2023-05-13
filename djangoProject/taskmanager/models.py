@@ -25,7 +25,7 @@ class Utilizador(models.Model):
     nome = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     imagem = models.ImageField(upload_to='profile_pics', blank=True, null=True)
-    descricao = models.TextField( default ="Ainda sem descricao ,escreva um pouco sobre si!")
+    descricao = models.TextField( default ="Ainda sem descricao, escreva um pouco sobre si!")
     datadecriacao = models.DateField(auto_now_add=True)
 
 
