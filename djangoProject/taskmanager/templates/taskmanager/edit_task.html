@@ -2,7 +2,6 @@
 
 {% block head %}
     {% load static %}
-    <script type="text/javascript" src="{% static 'taskmanager/javascript/confirm.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
     <title> Editar Tarefa </title>
 {% endblock %}
@@ -14,5 +13,14 @@
     {{ form.as_p }}
     <button type="submit">Atualizar</button>
   </form>
-    <button id="delete" onclick="confirmTask()">Eliminar</button>
+    <button id="delete">Eliminar</button>
+
+    <script type='text/javascript'>
+    var myButton = document.getElementById("delete");
+    myButton.addEventListener("click", function() {
+        if (confirm("Essa ação é irreversível, deseja prosseguir?")) {
+            window.location.href = "{% url 'taskmanager:delete_task' task.id %}";
+        }
+    });
+</script>
 {% endblock %}

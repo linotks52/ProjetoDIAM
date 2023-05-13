@@ -20,8 +20,8 @@
     <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="25" height="25">
     <label id="sort"> </label>
     <ul id="list">
-  {% if page_obj %}
-    {% for task in page_obj %}
+  {% if tasks %}
+    {% for task in tasks %}
       <li>
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
@@ -29,29 +29,11 @@
       <label class="deadline"> Due Date: {{ task.deadline }} || </label>
       <label> Completion status: </label>
       <input type="checkbox" class="completed" {% if task.completed %} checked="true" {% endif %} onchange="update({{ task.id }})">
-      <label> {{ task.user }} </label>
       </li>
     {% endfor %}
   {% else %}
         <p>Não há tarefas disponíveis.</p>
     {% endif %}
     <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
-    <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; primeira</a>
-            <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
-        {% endif %}
-
-        <span class="current-page">
-            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">próxima</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
-        {% endif %}
-    </span>
-</div>
   </ul>
 {% endblock %}

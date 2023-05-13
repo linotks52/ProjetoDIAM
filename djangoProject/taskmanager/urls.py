@@ -25,7 +25,7 @@ urlpatterns = [
                   path('users/delete/<int:utilizador_id>/', views.delete_user, name='delete_user'),
                   path('tasks/change/<int:task_id>/', views.change_completion, name='change'),
                   path('users/delete/<int_array:ids>/', views.multiple_delete_users, name='multiple_delete_users'),
-                  path('users/tasks/<int:utilizador_id>', views.users_tasks, name='users_tasks'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
