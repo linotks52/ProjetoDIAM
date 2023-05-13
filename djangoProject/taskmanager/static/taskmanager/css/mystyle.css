@@ -32,6 +32,10 @@ button{
 
 }
 
+button:hover{
+    background-color: #e8b670;
+}
+
 .imagens {
     border: 3px solid black;
 }
@@ -139,6 +143,14 @@ button{
     padding-left: 10px;
 
 
+}
+
+.hcontainters:hover{
+    background-color: #da9870;
+}
+
+.hcontainters:checked{
+    background-color: #da9870;
 }
 
 .topo  a {
