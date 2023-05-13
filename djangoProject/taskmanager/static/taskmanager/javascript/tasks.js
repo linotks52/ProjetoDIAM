@@ -1,36 +1,4 @@
-var currentPage = 1; // Keep track of the current page number
-
-function changePage(event, direction) {
-  event.preventDefault();
-
-  if (direction === 'prev' && currentPage > 1) {
-    currentPage--;
-  } else if (direction === 'next') {
-    currentPage++;
-  }
-
-  // Remove active class from all page links
-  var pageLinks = document.getElementsByClassName('page-link');
-  for (var i = 0; i < pageLinks.length; i++) {
-    pageLinks[i].classList.remove('active');
-  }
-
-  // Add active class to the clicked page link
-  event.target.classList.add('active');
-
-  // Load content for the selected page
-  loadContent(currentPage);
-}
-
-function loadContent(pageNum) {
-  // Make an AJAX request or load content based on the page number
-  // Replace the following code with your own logic
-  var contentDiv = document.getElementById('content');
-  contentDiv.innerHTML = 'Content of Page ' + pageNum;
-}
-
-
-function update(id){
+    function update(id){
         window.location.href="/taskmanager/tasks/change/" + id + "/";
     }
 

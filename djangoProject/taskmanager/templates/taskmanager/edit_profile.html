@@ -10,7 +10,7 @@
   <h2>Alterar Perfil</h2>
   <form method="POST" action="{% url 'taskmanager:edit_profile' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    Imagem: {{ form.imagem }}
+    Imagem: {{ form.imagem  }}
       <br>
     Nome:  {{ form.nome }}
       <br>

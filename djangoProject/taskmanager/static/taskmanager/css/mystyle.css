@@ -144,3 +144,18 @@ button{
     padding-bottom : 10px;
 
 }
+.pagination {
+  margin-bottom: 20px;
+}
+
+.page-link {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+
+.page-link.active {
+  background-color: #ccc;
+}
