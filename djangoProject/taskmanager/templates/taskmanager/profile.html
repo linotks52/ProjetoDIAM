@@ -8,8 +8,10 @@
 
 {% block content %}
 
+    <div class="perfilPrincipal">
 
-    <h2>Seu Perfil</h2>
+
+        <div class="Informacaopessoal">
         {% if user.utilizador.imagem %}
     <h2><img class="imagens" src="{{ request.user.utilizador.imagem.url }}" alt="{{ request.user.utilizador.nome }}'s profile picture" width="200" height="200"></h2>
         {% else %}
@@ -23,15 +25,20 @@
 
     <button onclick="window.location='edit_profile/';">Alterar Informacoes</button>
 
+        </div>
+
     <br></br>
     <br></br>
+
+    <div class="estatisticas">
 
     <h3>Estatisticas</h3>
     <p>Criacao da Conta : {{ request.user.utilizador.datadecriacao }}</p>
     <p>Tarefas Criadas : {{ request.user.utilizador.tarefascriadas}}</p>
     <p>Tarefas a Decorrer : {{ request.user.utilizador.tarefasadecorrer }}</p>
     <p>Tarefas Concluidas : {{ request.user.utilizador.tarefasconcluidas }}</p>
+        </div>
 
-
+    </div>
 
 {% endblock %}

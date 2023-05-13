@@ -22,10 +22,10 @@ class Task(models.Model):
 
 class Utilizador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nome = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
+    nome = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
     imagem = models.ImageField(upload_to='profile_pics', blank=True, null=True)
-    descricao = models.TextField( default ="Ainda sem descricao, escreva um pouco sobre si!")
+    descricao = models.TextField( max_length=300,default ="Ainda sem descricao, escreva um pouco sobre si!")
     datadecriacao = models.DateField(auto_now_add=True)
 
 
