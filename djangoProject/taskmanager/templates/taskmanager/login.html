@@ -2,7 +2,12 @@
 
 {% block head %}
     {% load static %}
+    <script type="text/javascript" src="{% static 'taskmanager/javascript/error.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
+    <script>
+    var errorMessage = "{{ error_message }}";
+        window.onload = error(errorMessage);
+    </script>
     <title> Autenticação </title>
 {% endblock %}
 
