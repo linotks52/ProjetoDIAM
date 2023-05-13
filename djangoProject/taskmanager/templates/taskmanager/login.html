@@ -5,16 +5,18 @@
 {% endblock %}
 
 {% block content %}
-        <header> <h3> Login </h3> </header>
-        <div>
+        <div class="login">
+    <header> <h2>Login </h2> </header>
+
             <form action="{% url 'taskmanager:logar' %}"  method="post">
             {% csrf_token %}
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Senha">
-            <input type="submit" value="logar" />
+                <p></p>
+            <input type="submit" value="Login" />
             </form>
-        </div>
-{% endblock %}
-{% block options %}
+
+
     <h2> Não tem uma conta? Crie uma <a href="{% url 'taskmanager:signup' %}">aqui</a></h2>
+     </div>
 {% endblock %}

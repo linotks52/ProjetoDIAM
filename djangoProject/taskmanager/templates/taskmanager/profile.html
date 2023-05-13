@@ -1,24 +1,41 @@
 {% extends "./base.html" %}
 {% load static %}
 
+
+
+
+
+
 {% block title %}
     Perfil
 {% endblock %}
 
 {% block content %}
+
+
     <h2>Seu Perfil</h2>
+        {% if user.utilizador.imagem %}
+    <h2><img class="imagens" src="{{ request.user.utilizador.imagem.url }}" alt="{{ request.user.utilizador.nome }}'s profile picture" width="200" height="200"></h2>
+        {% else %}
     <h2><img src="{% static 'taskmanager/images/default-user-image.png' %}" width="200" height="200"></h2>
-    <h3> {{ request.user.utilizador.nome }} </h3>
-    <h4>{{request.user.username}}</h4>
-    <p>Sobre si: {{request.user.utilizador.descricao}}</p>
-    <p>Email: {{request.user.email}}</p>
+{% endif %}
+    <h3 > {{ request.user.utilizador.nome }} </h3>
+    <h4 >{{request.user.username}}</h4>
+    <p  >Sobre si: {{request.user.utilizador.descricao}}</p>
+    <p >Email: {{request.user.utilizador.email}}</p>
     <p></p>
-    <button type="button" onclick="select()" >Alterar Informacoes</button>
+
+    <button onclick="window.location='edit_profile/';">Alterar Informacoes</button>
+
     <br></br>
     <br></br>
+
+    <h3>Estatisticas</h3>
     <p>Criacao da Conta : {{ request.user.utilizador.datadecriacao }}</p>
-    <p>Tarefas Criadas : {{ request.user.utilizador.tarefascriadas }}</p>
+    <p>Tarefas Criadas : {{ request.user.utilizador.tarefascriadas}}</p>
+    <p>Tarefas a Decorrer : {{ request.user.utilizador.tarefasadecorrer }}</p>
     <p>Tarefas Concluidas : {{ request.user.utilizador.tarefasconcluidas }}</p>
+
 
 
 {% endblock %}

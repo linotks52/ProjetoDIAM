@@ -3,13 +3,16 @@
     {% load static %}
 </head>
 {% block content %}
-  <h2>User List</h2>
-    <a href="{% url 'taskmanager:signup' %}">Create User</a>
+    <div class="user">
+  <h2>&nbsp;&nbsp;&nbsp;&nbsp;User List</h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'taskmanager:signup' %}" class="Createuser">Create User</a>&nbsp;
     <input type="text" placeholder="Pesquisar" id="search" onkeyup="search()">
-    <div>
-    <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="50" height="50">
-    <label id="sort"> </label>
+
+    <div style="top: -31px; position:relative; left: 350px">
+    <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="25" height="25">
     </div>
+    <label id="sort"> </label>
+    <div style="top: -20px; position: relative">
     <ul id="list">
   {% if Users %}
     {% for utilizador in Users %}
@@ -22,8 +25,11 @@
   {% else %}
         <p>Não há Users disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
+    <p></p>
+    <button id="deleteAll" type="button" onclick="select()" style="display: none;" class="Eliminaruser">Eliminar</button>
   </ul>
+    </div>
+    </div>
 
     <script type='text/javascript'>
 

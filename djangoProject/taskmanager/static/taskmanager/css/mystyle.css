@@ -1,0 +1,92 @@
+body {
+  background-color: #e8b696;
+}
+.imagens {
+    border: 3px solid black;
+}
+
+.login{
+    padding: 20px 0;
+   border: 3px solid black;
+    text-align: center;
+    height: 250px;
+    width: 200px;
+     margin-left: auto;
+    margin-right: auto;
+    background-color: #d98181;
+    color: white;
+    font-family: "Arial";
+    bottom: 400px;
+     position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+.user{
+    padding: 20px 0;
+   border: 3px solid black;
+    text-align: justify;
+    height: 400px;
+    width: 500px;
+     margin-left: auto;
+    margin-right: auto;
+    background-color: #d98181;
+    color: white;
+    font-family: "Arial";
+    bottom: 400px;
+     position: absolute;
+    top: 20%;
+    left: 30%;
+}
+
+.Createuser {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e8b696;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.Eliminaruser {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #e8b696;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.Createuser:hover {
+  background-color: #e8b670;
+}
+
+.topo{
+    background-color: #da9898;
+    width: 100%;
+        padding: 10px 0;
+        color: #fff;
+    color: white;
+    font-family: "Arial";
+    align-content: center;
+}
+
+.hcontainters{
+    border: 5px solid #383333;
+    padding: 6px 0;
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+
+.topo  a {
+
+  color: #f2f2f2;
+  font-size: 15px;
+}
