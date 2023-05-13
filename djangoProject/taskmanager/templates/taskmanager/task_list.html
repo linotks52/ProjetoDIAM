@@ -11,7 +11,7 @@
         <option selected value="title"> Título</option>
         <option value="priority"> Prioridade</option>
         <option value="completion"> Estado </option>
-        <option value="date"> Data </option>
+        <option value="deadline"> Data </option>
     </select>
     <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="25" height="25">
     <label id="sort"> </label>
@@ -22,6 +22,7 @@
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
       <label class="priority"> || Priority: {{ task.priority }} || </label>
+      <label class="deadline"> Due Date: {{ task.deadline }} || </label>
       <label> Completion status: </label>
       <input type="checkbox" class="completed" {% if task.completed %} checked="true" {% endif %} onchange="update({{ task.id }})">
       </li>
@@ -43,6 +44,7 @@
         const titles = list.getElementsByTagName("a");
         const priorities = list.getElementsByClassName("priority");
         const completed = list.getElementsByClassName("completed");
+        const deadlines = list.getElementsByClassName("deadline");
         tarefas = [];
         for(let i = 0; i < titles.length; i++ ){
             const tarefa = {
@@ -50,6 +52,7 @@
                 priority: priorities[i].innerHTML,
                 completed: completed[i].checked,
                 link: titles[i].href,
+                deadline: deadlines[i].innerHTML,
             };
             tarefas.push(tarefa);
             console.log("completed "+completed[i].checked);
@@ -62,11 +65,11 @@
             alert("Por favor selecione uma opção de ordenação");
         } else {
             console.log("essa "+selectedValue);
-            typeOfSort(tarefas, selectedValue, priorities, titles, completed);
+            typeOfSort(tarefas, selectedValue, priorities, titles, deadlines, completed);
         }
     }
 
-    function typeOfSort(tarefas, sort, priorities, titles, completed){
+    function typeOfSort(tarefas, sort, priorities, titles, deadlines, completed){
         var type = document.getElementById("sort");
         if(sort == "priority") {
             if (type.textContent.trim() == "") {
@@ -148,10 +151,42 @@
                     return 0;
                 });
                 document.getElementById("sort").innerHTML = "Descendente";
-            } else if (type.textContent.trim() == "Descendente") {
+            } else if (type.textContent.trim() == "date") {
                 tarefas.sort(function (a, b) {
                     let priorityA = a.completed;
                     let priorityB = b.completed;
+                    if (priorityA < priorityB) {
+                        return -1;
+                    }
+                    if (priorityA > priorityB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Ascendente";
+                console.log(" segundos if" + type.innerHTML);
+            } else {
+                document.getElementById("sort").innerHTML = "";
+            }
+        }else if(sort == "deadline") {
+            if (type.textContent.trim() == "") {
+                console.log(" primeiro if");
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.deadline.toUpperCase();
+                    let priorityB = b.deadline.toUpperCase();
+                    if (priorityB < priorityA) {
+                        return -1;
+                    }
+                    if (priorityB > priorityA) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                document.getElementById("sort").innerHTML = "Descendente";
+            } else if (type.textContent.trim() == "Descendente") {
+                tarefas.sort(function (a, b) {
+                    let priorityA = a.deadline.toUpperCase();
+                    let priorityB = b.deadline.toUpperCase();
                     if (priorityA < priorityB) {
                         return -1;
                     }
@@ -173,6 +208,7 @@
             titles[i].innerHTML = tarefas[i].title;
             titles[i].href = tarefas[i].link;
             priorities[i].innerHTML = tarefas[i].priority;
+            deadlines[i].innerHTML = tarefas[i].deadline;
             completed[i].checked = tarefas[i].completed;
         }
     }
