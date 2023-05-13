@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+
     <meta charset="UTF-8">
     {% load static %}
     <!--<link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}"> -->
     <title> {% block title %} Base {% endblock %} </title>
-
+<link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
 </head>
 <body>
      {% if request.user.is_authenticated %}
     <header>
 
-    <nav>
+    <nav class = "topo">
             <a href="https://www.iscte-iul.pt/"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Logo_ISCTE_Instituto_Universit%C3%A1rio_de_Lisboa.svg" alt="ISCTE" style="width:80px;height:15px;"></a>
 ||
-            <a href="{% url 'taskmanager:profile' %}">O meu perfil</a>
+            <a class = "hcontainters" href="{% url 'taskmanager:profile' %}">O meu perfil</a>
 ||
-            <a href="{% url 'taskmanager:task_list' %}">Suas Tasks</a>
+            <a class = "hcontainters" href="{% url 'taskmanager:task_list' %}">Suas Tasks</a>
 ||
-            <a href="{% url 'taskmanager:creditos' %}">Creditos</a>
+            <a class = "hcontainters" href="{% url 'taskmanager:creditos' %}">Creditos</a>
         {% if request.user.utilizador.isAdmin %}
         ||
-            <a href="{% url 'taskmanager:user_list' %}">Users</a>
+            <a class = "hcontainters" href="{% url 'taskmanager:user_list' %}">Users</a>
             {% endif %}
 ||
-            <a href="{% url 'taskmanager:sair' %}">Sair</a>
+            <a class = "hcontainters" href="{% url 'taskmanager:sair' %}">Sair</a>
         </nav>
     {% else %}
-        <nav>
+        <nav class = "topo">
             <a href="https://www.iscte-iul.pt/"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Logo_ISCTE_Instituto_Universit%C3%A1rio_de_Lisboa.svg" alt="ISCTE" style="width:80px;height:15px;"></a>
            ||
-            <a href="{% url 'taskmanager:logar' %}"> Login </a>
+            <a class = "hcontainters" href="{% url 'taskmanager:logar' %}"> Login </a>
            ||
-            <a href="{% url 'taskmanager:signup' %}"> Signup </a>
+            <a class = "hcontainters" href="{% url 'taskmanager:signup' %}"> Signup </a>
            ||
-            <a href="{% url 'taskmanager:creditos' %}"> Creditos </a>
+            <a class = "hcontainters" href="{% url 'taskmanager:creditos' %}"> Creditos </a>
         </nav>
     {% endif %}
     </header>

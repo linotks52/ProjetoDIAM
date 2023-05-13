@@ -15,7 +15,7 @@
 
     <h2>Seu Perfil</h2>
         {% if user.utilizador.imagem %}
-    <h2><img src="{{ request.user.utilizador.imagem.url }}" alt="{{ request.user.utilizador.nome }}'s profile picture" width="200" height="200"></h2>
+    <h2><img class="imagens" src="{{ request.user.utilizador.imagem.url }}" alt="{{ request.user.utilizador.nome }}'s profile picture" width="200" height="200"></h2>
         {% else %}
     <h2><img src="{% static 'taskmanager/images/default-user-image.png' %}" width="200" height="200"></h2>
 {% endif %}
