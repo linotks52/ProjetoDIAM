@@ -136,6 +136,7 @@ button{
     padding-bottom : 10px;
     height: 500px;
     width: 450px;
+    color: white;
 }
 
 .estatisticas{
@@ -147,6 +148,7 @@ button{
     padding-left : 10px;
     padding-right : 10px;
     padding-bottom : 10px;
+    color: white;
 
 }
 .pagination {
