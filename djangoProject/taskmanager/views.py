@@ -141,10 +141,19 @@ def sair(request):
     logout(request)
     return HttpResponseRedirect(reverse('taskmanager:logar'))
 
+
+
 @login_required(login_url='/taskmanager/')
 def user_list(request):
-    users = Utilizador.objects.all()
-    return render(request, 'taskmanager/user_list.html', {'Users': users})
+    items = Utilizador.objects.all()
+    items_per_page = 9
+    paginator = Paginator(items, items_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'taskmanager/user_list.html', context)
 
 
 @login_required(login_url='/taskmanager/')
@@ -188,3 +197,22 @@ def users_tasks(request, utilizador_id):
         'page_obj': page_obj
     }
     return render(request, 'taskmanager/task_list.html', context)
+
+def criar_user(request):
+    if (request.method == 'POST'):
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        nome = request.POST['nome']
+        isAdmin = request.POST.get('isAdmin', False)
+        if(isAdmin=="on"):
+            isAdmin=True
+        else:
+            isAdmin=False
+        u = User.objects.create_user(username, email, password)
+        user = Utilizador(user=u, email=email, nome=nome, isAdmin=isAdmin)
+        user.save()
+
+        return HttpResponseRedirect(reverse('taskmanager:user_list'))
+    else:
+        return render(request, 'taskmanager/criar_user.html')

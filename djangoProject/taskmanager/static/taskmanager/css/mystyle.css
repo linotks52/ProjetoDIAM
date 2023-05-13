@@ -32,6 +32,10 @@ button{
 
 }
 
+button:hover{
+    background-color: #e8b670;
+}
+
 .imagens {
     border: 3px solid black;
 }
@@ -70,6 +74,23 @@ button{
     left: 30%;
 }
 
+.Task{
+    padding: 20px 0;
+   border: 3px solid black;
+    text-align: justify;
+    height: 400px;
+    width: 700px;
+     margin-left: auto;
+    margin-right: auto;
+    background-color: #d98181;
+    color: white;
+    font-family: "Arial";
+    bottom: 400px;
+     position: absolute;
+    top: 20%;
+    left: 22%;
+}
+
 .Createuser {
   display: inline-block;
   padding: 10px 20px;
@@ -80,6 +101,7 @@ button{
   border: none;
   cursor: pointer;
   font-size: 16px;
+    border: 2px solid black;
 }
 
 .Eliminaruser {
@@ -121,6 +143,14 @@ button{
     padding-left: 10px;
 
 
+}
+
+.hcontainters:hover{
+    background-color: #da9870;
+}
+
+.hcontainters:checked{
+    background-color: #da9870;
 }
 
 .topo  a {
