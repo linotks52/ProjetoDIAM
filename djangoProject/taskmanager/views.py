@@ -154,7 +154,7 @@ def edit_user(request, utilizador_id):
 
 @login_required(login_url='/taskmanager/')
 def delete_user(request, utilizador_id):
-    utilizador = Utilizador.objects.get(id=utilizador_id)
+    utilizador = Utilizador.objects.get(pk=utilizador_id)
     utilizador.delete()
     return redirect('taskmanager:user_list')
 
