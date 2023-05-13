@@ -71,7 +71,7 @@ button:hover{
     bottom: 400px;
      position: absolute;
     top: 20%;
-    left: 30%;
+    left: 35%;
 }
 
 .Task{
@@ -88,7 +88,7 @@ button:hover{
     bottom: 400px;
      position: absolute;
     top: 20%;
-    left: 22%;
+    left: 30%;
 }
 
 .Createuser {
@@ -198,8 +198,18 @@ button:hover{
     color: white;
 
 }
-.pagination {
-  margin-bottom: 20px;
+.paginationtask {
+    color:black;
+    position: relative;
+    left: 280px;
+    top: 20px;
+}
+
+.paginationuser {
+    color:black;
+    position: relative;
+    left: 195px;
+    top: 10px;
 }
 
 .page-link {
