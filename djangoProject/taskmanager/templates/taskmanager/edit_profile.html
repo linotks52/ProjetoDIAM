@@ -7,20 +7,24 @@
 {% endblock %}
 
 {% block content %}
+    <div class="editprofile">
+
   <h2>Alterar Perfil</h2>
-  <form method="POST" action="{% url 'taskmanager:edit_profile' %}" enctype="multipart/form-data">
+  <form class="epcontainters" method="POST" action="{% url 'taskmanager:edit_profile' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    Imagem: {{ form.imagem  }}
+    <p>Imagem: {{ form.imagem  }}</p>
       <br>
-    Nome:  {{ form.nome }}
+    <p >Nome:  {{ form.nome }}</p>
+      <br>Descricao:
+   <p> {{ form.descricao }}</p>
       <br>
-    {{ form.descricao }}
-      <br>
-    Email: {{ form.email }}
+   <p>  Email: {{ form.email }}</p>
       <br>
     <button onclick="history.back()" type="submit">Salvar mudancas</button>
 </form>
 
     <button onclick="history.back()" >Cancelar</button>
+
+    </div>
 
 {% endblock %}
