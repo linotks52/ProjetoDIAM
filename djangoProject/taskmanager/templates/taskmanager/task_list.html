@@ -8,8 +8,9 @@
     
 {% endblock %}
 {% block content %}
-  <h2>Task List</h2>
-    <a href="{% url 'taskmanager:create_task' %}">Create Task</a>
+  <div class="Task">
+  <h2 style="color: black">&nbsp;&nbsp;&nbsp;&nbsp;Task List</h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'taskmanager:create_task' %}" class="Createuser">Create Task</a>&nbsp;
     <input type="text" placeholder="Pesquisar" id="search" onkeyup="search()">
     <select id="criteria">
         <option selected value="title"> Título</option>
@@ -17,25 +18,28 @@
         <option value="completion"> Estado </option>
         <option value="deadline"> Data </option>
     </select>
+      <div style="top: 97px; position:absolute; left: 433px">
     <img onclick="sort()" src="{% static 'taskmanager/images/sorting_arrow.png' %}" width="25" height="25">
-    <label id="sort"> </label>
+    <label id="sort"> </label></div>
     <ul id="list">
   {% if page_obj %}
     {% for task in page_obj %}
       <li>
       <input type="checkbox" id="{{ task.id }}" name="ids" onchange="visibility()">
       <a href="{% url 'taskmanager:edit_task' task.id %}"> {{ task.title }}</a>
-      <label class="priority"> || Priority: {{ task.priority }} || </label>
-      <label class="deadline"> Due Date: {{ task.deadline }} || </label>
-      <label> Completion status: </label>
+      <label class="priority" style="color: black"> || Priority: {{ task.priority }} || </label>
+      <label class="deadline" style="color: black"> Due Date: {{ task.deadline }} || </label>
+      <label style="color: black"> Completion status: </label>
       <input type="checkbox" class="completed" {% if task.completed %} checked="true" {% endif %} onchange="update({{ task.id }})">
       </li>
     {% endfor %}
   {% else %}
         <p>Não há tarefas disponíveis.</p>
     {% endif %}
-    <button id="deleteAll" type="button" onclick="select()" style="display: none;">Eliminar</button>
-    <div class="pagination">
+        <p></p>
+    <button id="deleteAll" type="button" onclick="select()" style="display: none;" class="Eliminaruser">Eliminar</button>
+        </div>
+    <div class="pagination" style="position: absolute; top: 500px; right: 630px">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; primeira</a>
