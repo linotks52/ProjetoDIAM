@@ -1,7 +1,9 @@
 {% extends "./base.html" %}
 
-{% block title %}
-    Autenticação
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
+    <title> Autenticação </title>
 {% endblock %}
 
 {% block content %}

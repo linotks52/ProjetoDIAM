@@ -1,13 +1,9 @@
 {% extends "./base.html" %}
-{% load static %}
 
-
-
-
-
-
-{% block title %}
-    Perfil
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
+    <title> Perfil </title>
 {% endblock %}
 
 {% block content %}

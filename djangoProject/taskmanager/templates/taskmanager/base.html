@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt">
+    {% block head %}
 <head>
-
     <meta charset="UTF-8">
     {% load static %}
-    <!--<link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}"> -->
-    <title> {% block title %} Base {% endblock %} </title>
 <link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
 </head>
+        {% endblock %}
 <body>
      {% if request.user.is_authenticated %}
     <header>
