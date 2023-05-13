@@ -2,26 +2,19 @@
 
 {% block head %}
     {% load static %}
+    <script type="text/javascript" src="{% static 'taskmanager/javascript/confirm.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'taskmanager/css/mystyle.css'%}">
     <title> Editar Utilizador </title>
 {% endblock %}
 
 {% block content %}
   <h2>Editar utilizador</h2>
+    <a href="{% url 'taskmanager:users_tasks' utilizador.user.id %}">Tarefas de {{ utilizador.nome }}</a>
   <form method="post" action="{% url 'taskmanager:edit_user' utilizador.id %}">
     {% csrf_token %}
     {{ form.as_p }}
       <label> Data de criação: {{ utilizador.datadecriacao }}  </label><p></p>
     <button type="submit">Atualizar</button>
   </form>
-    <button id="delete">Eliminar</button>
-
-    <script type='text/javascript'>
-    var myButton = document.getElementById("delete");
-    myButton.addEventListener("click", function() {
-        if (confirm("Essa ação é irreversível, deseja prosseguir?")) {
-            window.location.href = "{% url 'taskmanager:delete_user' utilizador.id %}";
-        }
-    });
-</script>
+    <button id="delete" onclick="confirmUser()">Eliminar</button>
 {% endblock %}
