@@ -29,7 +29,6 @@
       <label class="deadline"> Due Date: {{ task.deadline }} || </label>
       <label> Completion status: </label>
       <input type="checkbox" class="completed" {% if task.completed %} checked="true" {% endif %} onchange="update({{ task.id }})">
-      <label> {{ task.user }} </label>
       </li>
     {% endfor %}
   {% else %}

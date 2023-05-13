@@ -76,9 +76,13 @@ def signup(request):
         password = request.POST['password']
         email = request.POST['email']
         nome = request.POST['nome']
-
+        isAdmin = request.POST.get('isAdmin', False)
+        if(isAdmin=="on"):
+            isAdmin=True
+        else:
+            isAdmin=False
         u = User.objects.create_user(username, email, password)
-        user = Utilizador(user=u, email=email, nome=nome)
+        user = Utilizador(user=u, email=email, nome=nome, isAdmin=isAdmin)
         user.save()
         login(request, u)
         return HttpResponseRedirect(reverse('taskmanager:task_list'))
@@ -91,12 +95,16 @@ def logar(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print(username, password)
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse('taskmanager:task_list'))
         else:
-            return render(request, 'taskmanager/login.html')
+            context = {
+                'error_message': "Informação de login incorreta"
+            }
+            print(context)
+            return render(request, 'taskmanager/login.html', context)
+
     else:
         return render(request, 'taskmanager/login.html')
 
@@ -149,7 +157,6 @@ def edit_user(request, utilizador_id):
             return redirect('taskmanager:user_list')
     else:
         form = UserForm(instance=utilizador)
-    print(utilizador)
     return render(request, 'taskmanager/edit_user.html', {'form': form, 'utilizador': utilizador})
 
 @login_required(login_url='/taskmanager/')
