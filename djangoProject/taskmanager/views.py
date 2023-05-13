@@ -146,7 +146,7 @@ def sair(request):
 @login_required(login_url='/taskmanager/')
 def user_list(request):
     items = Utilizador.objects.all()
-    items_per_page = 9
+    items_per_page = 5
     paginator = Paginator(items, items_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

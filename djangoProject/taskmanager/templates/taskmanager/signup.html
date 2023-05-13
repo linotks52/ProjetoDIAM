@@ -13,16 +13,16 @@
 
         <form action="{% url 'taskmanager:signup'%}"  method="post">
         {% csrf_token %}
-            <input type="text" name="username" placeholder="Username">
+            <input type="text" name="username" placeholder="Username" required>
             <br>
             <br>
-            <input type="text" name="email" placeholder="Email">
+            <input type="text" name="email" placeholder="Email" required>
             <br>
             <br>
-            <input type="text" name="nome" placeholder="Nome">
+            <input type="text" name="nome" placeholder="Nome" required>
             <br>
             <br>
-            <input type="password" name="password" placeholder="Senha">
+            <input type="password" name="password" placeholder="Senha" required>
             <br>
             <br>
             <label for="my-checkbox">Administrador: </label>
