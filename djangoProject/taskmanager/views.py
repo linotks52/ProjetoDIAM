@@ -1,4 +1,5 @@
 # views.py
+from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -14,9 +15,15 @@ from .forms import TaskForm, UtilizadorForm, UserForm
 
 @login_required(login_url='/taskmanager/')
 def task_list(request):
-    tasks = Task.objects.filter(user=request.user)
-    return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
-
+    items = Task.objects.filter(user=request.user)
+    items_per_page = 5
+    paginator = Paginator(items, items_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'taskmanager/task_list.html', context)
 
 @login_required(login_url='/taskmanager/')
 def create_task(request):
@@ -141,7 +148,6 @@ def edit_user(request, utilizador_id):
             return redirect('taskmanager:user_list')
     else:
         form = UserForm(instance=utilizador)
-    print(utilizador)
     return render(request, 'taskmanager/edit_user.html', {'form': form, 'utilizador': utilizador})
 
 @login_required(login_url='/taskmanager/')
@@ -160,3 +166,17 @@ def multiple_delete_users(request, ids):
 
 def creditos(request):
     return render(request, 'taskmanager/creditos.html')
+
+@login_required(login_url='/taskmanager/')
+def users_tasks(request, utilizador_id):
+    user = User.objects.get(id=utilizador_id)
+    items = Task.objects.filter(user=user)
+    items_per_page = 5
+    paginator = Paginator(items, items_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'taskmanager/task_list.html', context)
+
